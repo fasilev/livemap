@@ -77,3 +77,70 @@
   color: #666;
   margin-top: 4px;
 }
+
+  /* Wrapper around map */
+.map-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+/* Main map */
+.map-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Theme switcher buttons */
+.theme-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.theme-buttons button {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.theme-buttons button:hover {
+  background: #f0f0f0;
+}
+
+/* Error Message */
+.error-msg {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+/* Instruction Text */
+.instruction {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 1000;
+}
+
