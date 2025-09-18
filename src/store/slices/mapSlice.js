@@ -13,6 +13,7 @@ const mapSlice = createSlice({
       state.center = action.payload;
     },
     setZoom: (state, action) => {
+        
       state.zoom = action.payload;
     },
   },
