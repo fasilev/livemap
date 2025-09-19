@@ -46,7 +46,6 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
-      <h2>Map Controls</h2>
       <button onClick={addRandomMarker}>Add Random Marker</button>
       <button
         style={{ background: "#ff4d4d" }}
