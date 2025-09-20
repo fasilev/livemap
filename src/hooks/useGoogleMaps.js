@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const useGoogleMaps = (apiKey) => {
   useEffect(() => {
-    if (window.google && window.google.maps) return; // Already loaded
+    if (window.google && window.google.maps) return; 
 
     const script = document.createElement("script");
     script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
@@ -11,7 +11,7 @@ const useGoogleMaps = (apiKey) => {
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script); // Cleanup
+      document.body.removeChild(script); 
     };
   }, [apiKey]);
 };

@@ -163,7 +163,6 @@ const SearchBar = ({ onSelect }) => {
   const [loadingHome, setLoadingHome] = useState(false);
   const containerRef = useRef(null);
 
-  /** Fetch suggestions from OSM API */
   useEffect(() => {
     if (!debouncedQuery || debouncedQuery.length < 2) {
       setResults([]);
@@ -187,7 +186,6 @@ const SearchBar = ({ onSelect }) => {
       .then((data) => {
         if (!Array.isArray(data)) return setResults([]);
 
-        // 🔹 Filter only important locations (city, town, street, etc.)
         const filtered = data.filter((place) => {
           const type = place.type?.toLowerCase();
           return (
@@ -211,7 +209,6 @@ const SearchBar = ({ onSelect }) => {
       });
   }, [debouncedQuery]);
 
-  /** Close dropdown when clicked outside */
   useEffect(() => {
     const onDoc = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
@@ -222,7 +219,6 @@ const SearchBar = ({ onSelect }) => {
     return () => document.removeEventListener("click", onDoc);
   }, []);
 
-  /** Select a location from search results */
   const handleSelect = (item) => {
     const lat = parseFloat(item.lat);
     const lng = parseFloat(item.lon);
@@ -236,14 +232,12 @@ const SearchBar = ({ onSelect }) => {
     setResults([]);
   };
 
-  /** Home button → get current live location */
   const goToHome = () => {
     setLoadingHome(true);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
 
-        // Custom home marker
         dispatch(
           addMarker({
             lat: latitude,
@@ -253,7 +247,6 @@ const SearchBar = ({ onSelect }) => {
           })
         );
 
-        // Map zoom to home
         if (onSelect) onSelect([latitude, longitude]);
 
         setLoadingHome(false);
@@ -267,7 +260,6 @@ const SearchBar = ({ onSelect }) => {
     );
   };
 
-  /** Keyboard navigation */
   const onKeyDown = (e) => {
     if (!open) return;
     if (e.key === "ArrowDown") {
@@ -288,7 +280,6 @@ const SearchBar = ({ onSelect }) => {
 
   return (
     <div className="mobile-search-wrapper" ref={containerRef}>
-      {/* Search Bar */}
       <div className="mobile-search-bar">
         <Search className="search-icon" size={20} />
         <input
@@ -312,7 +303,6 @@ const SearchBar = ({ onSelect }) => {
         </button>
       </div>
 
-      {/* Suggestions Dropdown */}
       {open && results.length > 0 && (
         <ul className="mobile-suggestions">
           {results.map((r, i) => (

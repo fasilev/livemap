@@ -15,3 +15,4 @@ const markersSlice = createSlice({
 
 export const { addMarker, clearMarkers } = markersSlice.actions;
 export default markersSlice.reducer;
+   

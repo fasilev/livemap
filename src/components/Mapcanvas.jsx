@@ -354,7 +354,7 @@ import "leaflet/dist/leaflet.css";
 import SearchBar from "./SearchBar";
 import DirectionRoute from "./DirectionRoute";
 
-// Fix default Leaflet icon issue
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
@@ -364,12 +364,12 @@ L.Icon.Default.mergeOptions({
 
 const MapCanvas = () => {
   const [currentLocation, setCurrentLocation] = useState(null);
-  const [destination, setDestination] = useState(null); // ✅ Now will be used
-  const [mapTheme, setMapTheme] = useState("light"); // ✅ Now will be used
+  const [destination, setDestination] = useState(null); 
+  const [mapTheme, setMapTheme] = useState("light"); 
   const [directions, setDirections] = useState([]);
   const mapRef = useRef(null);
 
-  // Map tile themes
+  
   const themes = {
     light: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
     dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
@@ -377,7 +377,7 @@ const MapCanvas = () => {
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
   };
 
-  // Get user live location
+ 
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -390,22 +390,20 @@ const MapCanvas = () => {
     }
   }, []);
 
-  // Default center if location not found
   const center = currentLocation ? currentLocation : [51.505, -0.09];
 
   return (
     <div className="map-wrapper">
-      {/* Search Bar */}
       <SearchBar
         onSelect={(coords) => {
           if (mapRef.current) {
-            mapRef.current.setView(coords, 15); // Auto zoom to searched location
-            setDestination(coords); // ✅ Store as destination
+            mapRef.current.setView(coords, 15); 
+            setDestination(coords); 
           }
         }}
       />
 
-      {/* Theme toggle buttons */}
+    
       <div className="theme-buttons">
         <button
           className={mapTheme === "light" ? "active" : ""}
@@ -427,7 +425,7 @@ const MapCanvas = () => {
         </button>
       </div>
 
-      {/* Map */}
+  
       <MapContainer
         center={center}
         zoom={13}
@@ -435,27 +433,26 @@ const MapCanvas = () => {
         className="map-container"
         whenCreated={(map) => (mapRef.current = map)}
       >
-        {/* Theme Layer */}
+     
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
           url={themes[mapTheme]}
         />
 
-        {/* Current location marker */}
+       
         {currentLocation && (
           <Marker position={currentLocation}>
             <Popup>You are here</Popup>
           </Marker>
         )}
 
-        {/* Destination marker */}
+      
         {destination && (
           <Marker position={destination}>
             <Popup>Destination</Popup>
           </Marker>
         )}
 
-        {/* Directions */}
         {currentLocation && destination && (
           <DirectionRoute start={currentLocation} end={destination} />
         )}

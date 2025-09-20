@@ -61,7 +61,6 @@ const DirectionRoute = ({ map, start, end, onStepsUpdate }) => {
   useEffect(() => {
     if (!map || !start || !end) return;
 
-    // Create routing control
     const routeControl = L.Routing.control({
       waypoints: [
         L.latLng(start[0], start[1]),
@@ -84,7 +83,6 @@ const DirectionRoute = ({ map, start, end, onStepsUpdate }) => {
       },
     }).addTo(map);
 
-    // Fetch step-by-step instructions
     routeControl.on("routesfound", function (e) {
       const route = e.routes[0];
 
@@ -95,18 +93,15 @@ const DirectionRoute = ({ map, start, end, onStepsUpdate }) => {
         type: step.type,
       }));
 
-      // Send steps to parent component
       onStepsUpdate(formattedSteps);
     });
 
-    // Cleanup on unmount
     return () => {
       if (routeControl) {
         map.removeControl(routeControl);
       }
     };
-  }, [map, start, end, onStepsUpdate]); // ✅ Added missing dependencies
-
+  }, [map, start, end, onStepsUpdate]);
   return null;
 };
 
